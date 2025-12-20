@@ -117,11 +117,29 @@
                 {%- endfor -%}
                 
             </div>
+            {%- if section.settings.collection.products.size > 4 -%}
+                <button name="{{ 'badges.show_more' | t }}" 
+                    class="sm:hidden [border-radius:40px] px-[15px] py-[12px] w-full cursor-pointer transition-colors duration-300 mt-[20px] button center show_more">
+                    {{ 'badges.show_more' | t }}
+                </button>
+            {%- endif -%} 
         </div>
     </div>
 </div>
 
-
+{% javascript %}
+    document.addEventListener("DOMContentLoaded", function() {
+        let ele = document.querySelector('.show_more');
+        if(ele){
+            ele.addEventListener('click', onShowMoreClick);
+        }
+    });
+    function onShowMoreClick(e){
+        e.target.classList.add('hidden');
+        document.querySelectorAll('.multi-card').forEach(ele =>{
+            ele.classList.remove('max-sm:hidden')});
+    }
+{% endjavascript %}
 
 {% schema %}
 {
